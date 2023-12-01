@@ -130,3 +130,6 @@ AUTH_USER_MODEL = 'core.User'
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
+
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL= '/media/'
