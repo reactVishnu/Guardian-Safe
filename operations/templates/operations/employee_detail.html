@@ -1,0 +1,165 @@
+<!-- operations/templates/operations/employee_profile.html -->
+{% extends 'operations/base.html' %}
+{% load static %}
+{% block link %}
+	<link rel="stylesheet" href="{% static 'operations/emp_det.css' %}?{% now 'U' %}">
+{% endblock %}
+{% block content %}
+     <!-- Sidenav -->
+    <div class="sidenav">
+        <div class="profile">
+            <img src="{{ employee.profile_pic.url }}" alt="" width="100" height="100">
+
+            <div class="name">
+                {{ employee.first_name|title }}
+            </div>
+            <div class="job">
+                {{ employee.designation|title }}
+            </div>
+        </div>
+
+        <div class="sidenav-url">
+            <div class="url">
+                <a href="#profile" class="active">Profile</a>
+                <hr align="center">
+            </div>
+            <div class="url">
+                <a href="#settings">Update</a>
+                <hr align="center">
+            </div>
+        </div>
+    </div>
+    <!-- End -->
+
+    <!-- Main -->
+    <div class="main">
+        <h2>Detail of Employee - {{ employee.first_name|title }}</h2>
+        <div class="card">
+            <div class="card-body">
+                <div class="profile-image">
+                    <img src="{{ employee.profile_pic.url }}" alt="" width="200" height="200">
+                </div>
+                <i class="fa fa-pen fa-xs edit"></i>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td>:</td>
+                            <td>{{ employee.first_name|title }} {{ employee.last_name|title }}</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>:</td>
+                            <td>{{ employee.user.email }}</td>
+                        </tr>
+                        <tr>
+                            <td>Address</td>
+                            <td>:</td>
+                            <td>{{ employee.address }}</td>
+                        </tr>
+                        <tr>
+                            <td>Employee Code</td>
+                            <td>:</td>
+                            <td>{{ employee.employee_code }}</td>
+                        </tr>
+                        <tr>
+                            <td>Designation</td>
+                            <td>:</td>
+                            <td>{{ employee.designation | title }}</td>
+                        </tr>
+                        <tr>
+                            <td>Blood Group</td>
+                            <td>:</td>
+                            <td>{{ employee.blood_group }}</td>
+                        </tr>
+                    <tr>
+                            <td>Adhaar No</td>
+                            <td>:</td>
+                            <td>{{ employee.aadhar_no }}</td>
+                        </tr>
+                    <tr>
+                            <td>PAN No</td>
+                            <td>:</td>
+                            <td>{{ employee.pan_no }}</td>
+                        </tr>
+                    <tr>
+                            <td>Adhaar Verified</td>
+                            <td>:</td>
+                            <td>{% if employee.aadhar_file %}
+                            	 <span style="color: green;">&#10004; Verified</span>
+                                {% else %}
+                                <span style="color: red;">&#10008; Unverified</span>
+                            {% endif %} </td>
+                        </tr>
+                    <tr>
+                            <td>PAN Verified</td>
+                            <td>:</td>
+                            <td>{% if employee.pan_file %}
+                            	 <span style="color: green;">&#10004; Verified</span>
+                                {% else %}
+                                <span style="color: red;">&#10008; Unverified</span>
+                            {% endif %} </td>
+                        </tr>
+                        <tr>
+                            <td>Aadhaar Card</td>
+                            <td>:</td>
+                            <td>
+                                {% if employee.aadhar_file %}
+                                    <a href="{{ employee.aadhar_file.url }}" download>
+                                        Download
+                                    </a>
+                                {% else %}
+                                    <div style="color: red;"> No Aadhar Card available </div>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                     <tr>
+                            <td>PAN Card</td>
+                            <td>:</td>
+                            <td>
+                                {% if employee.pan_file %}
+                                    <a href="{{ employee.pan_file.url }}" download>
+                                        Download
+                                    </a>
+                                {% else %}
+                                    No Aadhar Card available
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Last Updated</td>
+                            <td>:</td>
+                            <td>{{ employee.updated_at }}</td>
+                        </tr>
+                        <tr>
+                            <td>Created at</td>
+                            <td>:</td>
+                            <td>{{ employee.user.created_at }}</td>
+                        </tr>
+                        <tr>
+                            <td>Maritial Status</td>
+                            <td>:</td>
+                            <td>{{ employee.marital_status|title }}</td>
+                        </tr>
+                        <tr>
+                            <td>Date-of-birth</td>
+                            <td>:</td>
+                            <td>{{ employee.date_of_birth|date }}</td>
+                        </tr>
+                        <tr>
+                            <td>Package</td>
+                            <td>:</td>
+                            <td>{{ employee.current_package }}</td>
+                        </tr>
+                        <tr>
+                            <td>Monthly Salary</td>
+                            <td>:</td>
+                            <td>{{ employee.monthly_income }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</div>
+{% endblock %}

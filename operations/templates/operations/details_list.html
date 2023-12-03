@@ -1,0 +1,13 @@
+{% extends 'operations/base.html'%}
+{% block title %}
+	User - Details
+{% endblock %}
+{% block content %}
+	<h1>Employees List</h1>
+    <ul>
+    {% for employee in object_list %}
+        <li><a href="/detail/{{ employee.employee_code }}" >{{ employee.first_name }}</a></li>
+    {% endfor %}
+    
+    </ul>
+{% endblock %}

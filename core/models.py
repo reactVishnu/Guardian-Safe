@@ -7,6 +7,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.contrib.auth import get_user_model
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
+from django.utils import timezone
 
 
 class UserManager(BaseUserManager):
@@ -38,6 +39,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     USERNAME_FIELD = 'email'
     objects = UserManager()
@@ -51,12 +54,12 @@ def user_image_upload_path(instance, filename):
 
 def user_aadhar_upload_path(instance, filename):
     # Assuming the user's name is stored in a field called 'name'
-    return f'profile/{instance.user.email}/{filename}'
+    return f'aadhar/{instance.user.email}/{filename}'
 
 
 def user_pan_upload_path(instance, filename):
     # Assuming the user's name is stored in a field called 'name'
-    return f'profile/{instance.user.email}/{filename}'
+    return f'pan/{instance.user.email}/{filename}'
 
 
 import os
@@ -71,6 +74,7 @@ class OverwriteStorage(FileSystemStorage):
 
 
 class Details(models.Model):
+    e_id = models.AutoField(primary_key=True, auto_created=True, serialize=False)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -81,6 +85,33 @@ class Details(models.Model):
     aadhar_file = models.FileField(upload_to=user_aadhar_upload_path, null=True, blank=True, storage=OverwriteStorage)
     pan_file = models.FileField(upload_to=user_pan_upload_path, null=True, blank=True, storage=OverwriteStorage)
     blood_group = models.CharField(max_length=5)
+    designation = models.CharField(max_length=200, null=True, blank=True)
+    employee_code = models.CharField(max_length=255, null=True, editable=False)
+    date_of_birth = models.DateField(null=True, blank=True)
+    current_package = models.IntegerField(max_length=40, null=True, blank=True)
+    monthly_income = models.IntegerField(max_length=40, null=True, blank=True)
+    GENDER_CHOICES = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('other', 'Other'),
+    ]
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True, blank=True)
+    MARITIAL_CHOICES = [
+        ('married', 'Married'),
+        ('single', 'Single'),
+        ('divorced', 'Divorced')
+    ]
+    marital_status = models.CharField(max_length=10, choices=MARITIAL_CHOICES, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        self.updated_at = timezone.now()
+        super().save(*args, **kwargs)
+
+        # Set the employee_code based on e_id after saving
+        self.employee_code = f'emp{str(self.e_id).zfill(4)}'
+        super().save(update_fields=['employee_code'], *args, **kwargs)
 
     def __str__(self):
         return f'User: {self.user.name}'
