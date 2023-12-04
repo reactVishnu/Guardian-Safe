@@ -1,0 +1,64 @@
+{% extends 'operations/base.html' %}
+{% load static %}
+{% block link %}
+	<link rel="stylesheet" href="{% static 'operations/create_emp.css' %}?{% now 'U' %}">
+	<link rel="stylesheet" href="{% static 'operations/emp_det.css' %}?{% now 'U' %}">
+{% endblock %}
+{% block content %}
+    {% if 'update' in request.path %}
+    	<!-- Sidenav -->
+    <div class="sidenav">
+        <div class="profile">
+            <img src="{{ form.instance.profile_pic.url }}" alt="" width="100" height="100">
+
+            <div class="name" >
+                {{ form.instance.first_name|title }}
+            </div>
+            <div class="job">
+                {{ form.instance.designation|title }}
+            </div>
+        </div>
+
+        <div class="sidenav-url">
+            <div class="url">
+                <a href="/detail/{{ form.instance.employee_code }}" >Profile</a>
+                <hr align="center">
+            </div>
+            <div class="url">
+                <a href="/update/{{ form.instance.employee_code }}" class="active">Update</a>
+                <hr align="center">
+            </div>
+            <div class="url">
+                <a href="/delete/{{ form.instance.employee_code }}">Delete</a>
+                <hr align="center">
+            </div>
+        </div>
+    </div>
+    <!-- End -->
+    {% endif %}
+    <div class="container">
+    <form method="post">
+    {% csrf_token %}
+        <div class="row">
+            <div class="col">
+            {% if 'update' in request.path %}
+                {{ form.id }}
+                <h3 class="title">Update Employee</h3>
+                {% else %}
+                <h3 class="title">Create Employee</h3>
+            {% endif %}
+                {% for fields in form %}
+                        <div class="inputBox">
+                        <span>{{ fields.label_tag }}</span>
+                        {{ fields }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <input type="submit" value="Submit" class="submit-btn">
+
+    </form>
+
+</div>
+{% endblock %}

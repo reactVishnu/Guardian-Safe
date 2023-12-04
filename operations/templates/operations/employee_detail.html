@@ -20,11 +20,15 @@
 
         <div class="sidenav-url">
             <div class="url">
-                <a href="#profile" class="active">Profile</a>
+                <a href="/detail/{{ employee.employee_code }}" class="active">Profile</a>
                 <hr align="center">
             </div>
             <div class="url">
-                <a href="#settings">Update</a>
+                <a href="/update/{{ employee.employee_code }}">Update</a>
+                <hr align="center">
+            </div>
+            <div class="url">
+                <a href="/delete/{{ employee.employee_code }}">Delete</a>
                 <hr align="center">
             </div>
         </div>

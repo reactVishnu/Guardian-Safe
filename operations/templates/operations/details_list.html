@@ -1,13 +1,24 @@
 {% extends 'operations/base.html'%}
+{% load static %}
 {% block title %}
 	User - Details
 {% endblock %}
+{% block link %}
+    <link rel="stylesheet" href="{% static 'operations/list.css' %}">
+{% endblock %}
 {% block content %}
-	<h1>Employees List</h1>
-    <ul>
+    <h2 style="margin-top: 20px">Employee Details</h2>
+    <div class='flex-box'>
     {% for employee in object_list %}
-        <li><a href="/detail/{{ employee.employee_code }}" >{{ employee.first_name }}</a></li>
+            <div class='card'>
+                <div class=''>
+                    <img class="img" src="{{ employee.profile_pic.url }}">
+                </div>
+                <p class='center'>Name: {{ employee.first_name|title }}</p>
+                <p class='center'>Code: {{ employee.employee_code|title }}</p>
+                <p class='center'>Job: {{ employee.designation|title }}</p>
+                <a href='/detail/{{ employee.employee_code }}' class="anchor">Read More</a>
+            </div>
     {% endfor %}
-    
-    </ul>
+    </div>
 {% endblock %}
