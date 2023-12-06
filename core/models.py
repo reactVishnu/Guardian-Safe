@@ -75,7 +75,7 @@ class OverwriteStorage(FileSystemStorage):
 
 class Details(models.Model):
     e_id = models.AutoField(primary_key=True, auto_created=True, serialize=False)
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     address = models.CharField(max_length=252)
@@ -88,8 +88,8 @@ class Details(models.Model):
     designation = models.CharField(max_length=200, null=True, blank=True)
     employee_code = models.CharField(max_length=255, null=True, editable=False)
     date_of_birth = models.DateField(null=True, blank=True)
-    current_package = models.IntegerField(max_length=40, null=True, blank=True)
-    monthly_income = models.IntegerField(max_length=40, null=True, blank=True)
+    current_package = models.IntegerField(null=True, blank=True)
+    monthly_income = models.IntegerField(null=True, blank=True)
     GENDER_CHOICES = [
         ('male', 'Male'),
         ('female', 'Female'),
