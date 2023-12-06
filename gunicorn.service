@@ -1,0 +1,14 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/var/lib/jenkins/workspace/django-cicd/guardian_safe
+ExecStart=/var/lib/jenkins/workspace/django-cicd/env/bin --workers 3 --log-level debug --error-logfile /var/lib/jenkins/workspace/django-cicd/error.log --bind unix:/run/gunicorn.sock guardian_safe.wsgi:application \
+--capture-output --log-level debug
+
+[Install]
+WantedBy=multi-user.target

@@ -4,7 +4,9 @@ if [ -d "env" ]
 then
     echo "Python virtual environment exists."
 else
+    echo "Creating Virtual Environment"
     python3 -m venv env
+    echo "Virtual Environment Created Successfully"
 fi
 
 source env/bin/activate
