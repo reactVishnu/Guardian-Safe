@@ -1,15 +1,14 @@
 #!/bin/bash
 
-sudo cp -rf app.conf /etc/ngnix/conf.d
-chmod 710 /cd /var/lib/jenkins/workspace/django-cicd
+sudo cp -rf app.conf /etc/nginx/sites-available/app
+sudo chmod 710 /var/lib/jenkins/workspace/django-cicd
 
 sudo ln -s /etc/nginx/sites-available/app /etc/nginx/sites-enabled
 sudo nginx -t
 
-sudo systemctl start ngnix
-sudo systemctl status ngnix
+sudo systemctl start nginx
+sudo systemctl enable nginx
 
-echo "Ngnix has been started"
+echo "Nginx has been started"
 
-sudo systemctl status gunicorn
-
+sudo systemctl status nginx
