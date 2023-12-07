@@ -4,7 +4,7 @@ sudo cp -rf app.conf /etc/ngnix/conf.d
 chmod 710 /cd /var/lib/jenkins/workspace/Guardian\ Safe\ Ci-CD
 
 sudo ln -s /etc/nginx/sites-available/app /etc/nginx/sites-enabled
-sudo ngnix -t
+sudo nginx -t
 
 sudo systemctl start ngnix
 sudo systemctl status ngnix

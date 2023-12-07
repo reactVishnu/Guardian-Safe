@@ -6,8 +6,8 @@ After=network.target
 [Service]
 User=root
 Group=www-data
-WorkingDirectory=/var/lib/jenkins/workspace/Guardian\ Safe\ Ci-CD/guardian_safe
-ExecStart=/var/lib/jenkins/workspace/Guardian\ Safe\ Ci-CD/env/bin/gunicorn --workers 3 --log-level debug --error-logfile /var/lib/jenkins/workspace/Guardian\ Safe\ Ci-CD/error.log --bind unix:/run/gunicorn.sock guardian_safe.wsgi:application
+WorkingDirectory=/var/lib/jenkins/workspace/django_cicd
+ExecStart=/var/lib/jenkins/workspace/django_cicd/env/bin/gunicorn --workers 3 --log-level debug --error-logfile /var/lib/jenkins/workspace/django_cicd/error.log --bind unix:/run/gunicorn.sock guardian_safe.wsgi:application
 
 [Install]
 WantedBy=multi-user.target
