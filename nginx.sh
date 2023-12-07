@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo cp -rf app.conf /etc/ngnix/conf.d
-chmod 710 /cd /var/lib/jenkins/workspace/Guardian\ Safe\ Ci-CD
+chmod 710 /cd /var/lib/jenkins/workspace/django-cicd
 
 sudo ln -s /etc/nginx/sites-available/app /etc/nginx/sites-enabled
 sudo nginx -t
