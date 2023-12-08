@@ -9,7 +9,10 @@
     	<!-- Sidenav -->
     <div class="sidenav">
         <div class="profile">
+            {% if form.instance.profile_pic %}
+
             <img src="{{ form.instance.profile_pic.url }}" alt="" width="100" height="100">
+                    {% endif %}
 
             <div class="name" >
                 {{ form.instance.first_name|title }}

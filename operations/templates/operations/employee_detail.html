@@ -8,7 +8,10 @@
      <!-- Sidenav -->
     <div class="sidenav">
         <div class="profile">
+            {% if employee.profile_pic  %}
+
             <img src="{{ employee.profile_pic.url }}" alt="" width="100" height="100">
+            {% endif %}
 
             <div class="name">
                 {{ employee.first_name|title }}
@@ -41,7 +44,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="profile-image">
+                    {% if employee.profile_pic %}
+
                     <img src="{{ employee.profile_pic.url }}" alt="" width="200" height="200">
+                    {% endif %}
                 </div>
                 <i class="fa fa-pen fa-xs edit"></i>
                 <table>

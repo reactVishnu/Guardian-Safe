@@ -11,9 +11,11 @@
     <div class='flex-box'>
     {% for employee in object_list %}
             <div class='card'>
+                {% if employee.profile_pic %}
                 <div class=''>
                     <img class="img" src="{{ employee.profile_pic.url }}">
                 </div>
+            {% endif %}
                 <p class='center'>Name: {{ employee.first_name|title }}</p>
                 <p class='center'>Code: {{ employee.employee_code|title }}</p>
                 <p class='center'>Job: {{ employee.designation|title }}</p>
